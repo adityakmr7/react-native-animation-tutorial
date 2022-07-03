@@ -1,11 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 
+const SIZE = 100;
 export default function App() {
+  const progress = useSharedValue(1);
+
+  const rStyle = useAnimatedStyle(() => {
+    return {
+      opacity: progress.value,
+      transform: [
+        {rotate: `${progress.value * Math.PI * 2}rad`}
+      ]
+    
+    }
+  },[])
+
+
+  useEffect(() => {
+    progress.value = withRepeat(withTiming(0.5, {duration: 5000}), -1, true)
+  },[])
+
+
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <StatusBar style="auto" />
+      <Animated.View  style={[styles.box, rStyle]}/>
     </View>
   );
 }
@@ -17,4 +39,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  box: {
+    width:SIZE,
+    height:SIZE,
+    backgroundColor:'red'
+  }
 });
