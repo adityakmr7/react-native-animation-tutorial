@@ -1,9 +1,11 @@
 import React from "react";
 import AnimationEvent from "./components/animationEvent";
-import SharedAnimation from "./components/sharedAnimation";
+import CircularLoader from "./components/circularLoader";
+// import SharedAnimation from "./components/sharedAnimation";
 export default function App() {
   return (
     // <SharedAnimation />
-    <AnimationEvent />
+    // <AnimationEvent />
+    <CircularLoader />
   );
 }
